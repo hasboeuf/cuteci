@@ -10,6 +10,8 @@ Qt installer is using Qt Installer Framework which provides scripting ability.
 * `Python3` and `pip3`
 * `pip3 install -r requirements.txt`
 
+`deploy_qt` is in Python but has only been tested on Ubuntu (+docker).
+
 ## Principle
 
 `deploy_qt` does few things:
@@ -70,7 +72,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
 * `destdir` should not contain a previous Qt installation,
   otherwise installer will complain and script does not handle it.
 * If Qt `X.Y.Z` is going to be installed, `deploy_qt` will use `scripts/install-X.Y.qs`.
-  Currently script for `5.12` exists, so it will fallback on it.
+  Currently only script for `5.12` exists, so it will fallback on it.
   Feel free to push a PR to cover more versions.
 
 ### Test
