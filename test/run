@@ -1,0 +1,9 @@
+#!/bin/sh
+set -ev
+cd $(dirname $0)
+
+../deploy_qt \
+    --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
+    --destdir /opt/Qt \
+    --packages qt.qt5.5122.qtnetworkauth,qt.qt5.5122.qtwebengine,qt.qt5.5122.gcc_64 \
+    --headless

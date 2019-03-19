@@ -1,0 +1,7 @@
+#!/bin/sh
+set -ev
+cd $(dirname $0)
+rm -rf data
+mkdir data
+cp ../requirements.txt data/
+docker build -t cuteci:1 .
