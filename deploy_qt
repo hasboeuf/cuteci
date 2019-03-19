@@ -8,7 +8,7 @@ import sys
 import os
 import stat
 import argparse
-import requests
+from urllib.request import urlopen
 import hashlib
 import re
 import subprocess
@@ -32,19 +32,22 @@ def _download_qt(qt_url):
 
     # Download Qt
     print("Download Qt", qt_url)
+
     hash_md5 = hashlib.md5()
-    response = requests.get(qt_url, stream=True, allow_redirects=True)
-    with open(qt_installer, "wb") as handle:
-        for chunk in response.iter_content(chunk_size=2048):
-            if chunk:  # filter out keep-alive new chunks
-                hash_md5.update(chunk)
-                handle.write(chunk)
+    with open(qt_installer, "wb") as qt_installer_file:
+        req = urlopen(qt_url)
+        while True:
+            chunk = req.read(4096)
+            if not chunk:
+                break
+            hash_md5.update(chunk)
+            qt_installer_file.write(chunk)
 
     # Download md5sums and check
     print("Download md5sums", md5sums_url)
-    response = requests.get(md5sums_url, allow_redirects=True)
+    response = urlopen(md5sums_url)
     print("Check md5sums")
-    if hash_md5.hexdigest() not in str(response.content):
+    if hash_md5.hexdigest() not in str(response.read()):
         print("Checksums do not match")
         return EXIT_ERROR
 

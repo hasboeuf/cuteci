@@ -8,8 +8,4 @@ RUN apt-get update && apt-get install --yes \
 
 WORKDIR /root/workspace
 
-COPY data $WORKDIR
-
-RUN pip3 install -r requirements.txt
-
 ENTRYPOINT ["/bin/bash"]
