@@ -113,6 +113,10 @@ Controller.prototype.PerformInstallationPageCallback = function() {
 Controller.prototype.FinishedPageCallback = function() {
     console.log("Finished Page");
     var widget = gui.currentPageWidget();
-    widget.LaunchQtCreatorCheckBoxForm.launchQtCreatorCheckBox.setChecked(false);
+    if (widget.LaunchQtCreatorCheckBoxForm) {
+        widget.LaunchQtCreatorCheckBoxForm.launchQtCreatorCheckBox.setChecked(false);
+    } else if (widget.RunItCheckBox) {
+        widget.RunItCheckBox.setChecked(false);
+    }
     gui.clickButton(buttons.FinishButton);
 }
