@@ -98,7 +98,7 @@ def _run_installer(qt_installer, headless, env):
     try:
         print("Running installer", cmd)
         proc.wait(INSTALL_TIMEOUT)
-    except:
+    except subprocess.TimeoutExpired:
         print("Timeout while waiting for the installer, kill it")
         proc.kill()
         return EXIT_ERROR
@@ -119,6 +119,9 @@ def _install(qt_installer, packages, destdir, headless):
 
 
 def main():
+    """
+    Command line tool to deploy Qt
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--installer", required=True, help="Path or url to Qt installer")
     parser.add_argument("--list-packages", action="store_true", help="List available packages")
