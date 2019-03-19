@@ -77,3 +77,12 @@ qt.qt5.5122.android_armv7    Android ARMv7
 ### Test
 
 Covered by docker and Travis CI, have a look to `test` dir if you're curious.
+
+### Code sanity
+
+Coding style is handled by `black` (via `./blackify`).
+Static checks are handled by `pylint` (via `./pylintify`).
+
+You must `pip3 install -r requirements/codesanity.txt` to use those scripts.
+
+Note: continuous integration does not check code sanity.

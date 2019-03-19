@@ -1,0 +1,5 @@
+#!/bin/sh
+set -ev
+cd $(dirname $0)
+
+pylint --output-format=parseable deploy_qt
