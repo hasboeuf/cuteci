@@ -29,7 +29,6 @@ def _download_qt(qt_url):
     md5sums_url = qt_url[:qt_url.rfind("/")] + "/" + MD5SUMS_FILENAME
 
     qt_installer = os.path.join(WORKING_DIR, filename)
-    md5sum_path = os.path.join(WORKING_DIR, MD5SUMS_FILENAME)
 
     # Download Qt
     print("Download Qt", qt_url)
