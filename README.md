@@ -25,7 +25,7 @@ Qt installer is using Qt Installer Framework which provides scripting ability.
 Common options:
 * `--installer`: path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`,
                  this is because `md5sums.txt` is retrieved implicitely from it.
-* `--headless`: is set, Qt installer UI does not open at all.
+* `--headless`: if set, Qt installer UI does not show up at all.
 
 ### List packages
 
