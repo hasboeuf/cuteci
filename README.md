@@ -7,7 +7,7 @@ Qt installers are using Qt Installer Framework which provides scripting ability.
 
 ## Requirements
 
-* `Python3` and `pip3`
+* `Python3`
 
 `deploy_qt` is in Python but has only been tested on Ubuntu (+docker).
 
