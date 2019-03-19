@@ -70,7 +70,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
 
 * `destdir` should not contain a previous Qt installation,
   otherwise installer will complain and script does not handle it.
-* If Qt `X.Y.Z` is going to be installed, `deploy_qt` will use `scripts/install-X.Y.qs`.
+* If Qt `X.Y.Z` is going to be installed, `deploy_qt` will use `install-X.Y.qs`.
   Currently only script for `5.12` exists, so it will fallback on it.
   Feel free to push a PR to cover more versions.
 

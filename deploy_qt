@@ -16,7 +16,7 @@ import subprocess
 WORKING_DIR = os.getcwd()
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 MD5SUMS_FILENAME = "md5sums.txt"
-DEFAULT_INSTALL_SCRIPT = os.path.join(CURRENT_DIR, "scripts", "install-5.12.qs")
+DEFAULT_INSTALL_SCRIPT = os.path.join(CURRENT_DIR, "install-5.12.qs")
 INSTALL_TIMEOUT = 120  # 2 minutes
 
 EXIT_OK = 0
@@ -70,7 +70,7 @@ def _get_major_minor_ver(qt_installer):
 
 
 def _get_install_script(version):
-    path = os.path.join(CURRENT_DIR, "scripts", "install-{}.qs".format(version))
+    path = os.path.join(CURRENT_DIR, "install-{}.qs".format(version))
     if not os.path.exists(path):
         print("Unsupported Qt version, fallback to", DEFAULT_INSTALL_SCRIPT)
         path = DEFAULT_INSTALL_SCRIPT
