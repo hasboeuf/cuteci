@@ -33,6 +33,16 @@ def _download_qt(qt_url):
     # Download Qt
     print("Download Qt", qt_url)
 
+    def print_progress(size, length):
+        # Print progress every 5%
+        if not hasattr(print_progress, "prev"):
+            print_progress.prev = -1  # Then 0% is printed
+        percent = int(size*100/length)
+        progress = percent - percent % 5
+        if progress != print_progress.prev:
+            print("\rFetched {}%".format(progress), end="")
+            print_progress.prev = progress
+
     hash_md5 = hashlib.md5()
     with open(qt_installer, "wb") as qt_installer_file:
         req = urlopen(qt_url)
@@ -45,7 +55,7 @@ def _download_qt(qt_url):
             size += len(chunk)
             hash_md5.update(chunk)
             qt_installer_file.write(chunk)
-            print("\rFetched {:.2f}%".format(size*100/length), end="")
+            print_progress(size, length)
 
     # Download md5sums and check
     print()
