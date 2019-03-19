@@ -36,14 +36,19 @@ def _download_qt(qt_url):
     hash_md5 = hashlib.md5()
     with open(qt_installer, "wb") as qt_installer_file:
         req = urlopen(qt_url)
+        length = int(req.getheader("content-length", 1500000000))
+        size = 0
         while True:
             chunk = req.read(4096)
             if not chunk:
                 break
+            size += len(chunk)
             hash_md5.update(chunk)
             qt_installer_file.write(chunk)
+            print("\rFetched {:.2f}%".format(size*100/length), end="")
 
     # Download md5sums and check
+    print()
     print("Download md5sums", md5sums_url)
     response = urlopen(md5sums_url)
     print("Check md5sums")
