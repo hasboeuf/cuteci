@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install --yes --no-install-recommends --quiet \
     libfontconfig \
     libdbus-1-3
 
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /root/workspace
 
 ENTRYPOINT ["/bin/bash"]
