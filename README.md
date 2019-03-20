@@ -34,7 +34,7 @@ Common options:
 ./deploy_qt \
     --installer <path or official url> \
     --list-packages \
-    [--headless]
+    [--headless] [--cleanup]
 ```
 
 Will output:
@@ -64,7 +64,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
     --installer <path or official url> \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
-    [--headless]
+    [--headless] [--cleanup]
 ```
 
 #### Notes
