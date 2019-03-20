@@ -8,4 +8,4 @@ install:
 - test/build
 
 script:
-- docker run -v $PWD:/root/workspace cuteci:1 /root/workspace/test/run
+- docker run --rm -v $PWD:/root/workspace cuteci:1 /root/workspace/test/run
