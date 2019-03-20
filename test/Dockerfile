@@ -1,9 +1,10 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && apt-get install --yes \
+RUN apt-get update && apt-get install --yes --no-install-recommends --quiet \
     python3 \
     xvfb \
-    libfontconfig
+    libfontconfig \
+    libdbus-1-3
 
 WORKDIR /root/workspace
 
