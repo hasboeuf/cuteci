@@ -26,6 +26,7 @@ Common options:
 * `--installer`: path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`,
                  this is because `md5sums.txt` is retrieved implicitely from it.
 * `--headless`: if set, Qt installer UI does not show up at all.
+* `--cleanup`: if set, Qt installer is removed at the end.
 
 ### List packages
 

@@ -128,6 +128,7 @@ def main():
     parser.add_argument("--packages", help="Comma separated list of package to install")
     parser.add_argument("--destdir", help="Path to install Qt, e.g.: /opt/Qt")
     parser.add_argument("--headless", action="store_true", help="No GUI displayed")
+    parser.add_argument("--cleanup", action="store_true", help="Remove Qt installer")
     args = parser.parse_args()
 
     installer = args.installer
@@ -135,6 +136,7 @@ def main():
     packages = args.packages
     destdir = args.destdir
     headless = bool(args.headless)
+    cleanup = bool(args.cleanup)
 
     if list_packages and (packages or destdir):
         parser.print_help()
@@ -153,11 +155,17 @@ def main():
 
     if list_packages:
         ret = _list_packages(qt_installer, headless)
-        if ret == EXIT_OK:
-            print("Available packages are printed above")
-        return ret
+        status = "FAIL" if ret else "Listing OK - available packages are printed above"
+    else:
+        ret = _install(qt_installer, packages, destdir, headless)
+        status = "FAIL" if ret else "Installation OK"
 
-    return _install(qt_installer, packages, destdir, headless)
+    if cleanup:
+        print("Cleaning", qt_installer)
+        os.remove(qt_installer)
+
+    print(status)
+    return ret
 
 
 if __name__ == "__main__":
