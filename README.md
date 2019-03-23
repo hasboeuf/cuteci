@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/hasboeuf/cuteci.svg?branch=master)](https://travis-ci.org/hasboeuf/cuteci)
-
 # CuteCI
+
+[![Build Status](https://travis-ci.org/hasboeuf/cuteci.svg?branch=master)](https://travis-ci.org/hasboeuf/cuteci)
 
 CuteCI is a simple script allowing you to install Qt in headless mode.
 Qt installers are using Qt Installer Framework which provides scripting ability.
@@ -16,26 +16,28 @@ Qt installers are using Qt Installer Framework which provides scripting ability.
 ## Principle
 
 `deploy_qt` does few things:
-- Download Qt installer if you pass an url
-- Make installer executable
-- Install Qt with desired packages in the directory you choose
+
+* Download Qt installer if you pass an url
+* Make installer executable
+* Install Qt with desired packages in the directory you choose
 
 `deploy_qt` can also only lists packages available in the installer.
 
 ## Usage
 
 Common options:
+
 * `--installer` (required): path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`, this is because `md5sums.txt` is retrieved implicitely from it.
 * `--headless`: if set, Qt installer UI does not show up at all.
 * `--cleanup`: if set, Qt installer is removed at the end.
 
 ### List packages
 
-```
+```bash
 ./deploy_qt
     --installer <path or official url> \
     [--headless] [--cleanup] \
-    list \
+    list
 ```
 
 Will output:
@@ -60,7 +62,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
 
 ### Install
 
-```
+```bash
 ./deploy_qt \
     --installer <path or official url> \
     [--headless] [--cleanup] \
