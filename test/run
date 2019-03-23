@@ -2,7 +2,7 @@
 set -ev
 cd $(dirname $0)
 
-# Test Qt 5.12
+# Test Qt 5.12.2
 ../deploy_qt \
     --headless \
     --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \

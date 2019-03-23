@@ -11,6 +11,8 @@ Qt installers are using Qt Installer Framework which provides scripting ability.
 
 `deploy_qt` is in Python but has only been tested on Ubuntu (+docker).
 
+`deploy_qt` has is tested with Qt installer `5.9.7` `5.10.1` `5.11.3` `5.12.2`.
+
 ## Principle
 
 `deploy_qt` does few things:
