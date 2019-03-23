@@ -146,7 +146,7 @@ def main():
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ui", action="store_true", help="Installer UI displayed")
-    parser.add_argument("--cleanup", action="store_true", help="Remove Qt installer")
+    parser.add_argument("--rm", action="store_true", help="Remove Qt installer")
     parser.add_argument("--installer", help="Path or url to Qt installer")
 
     subparsers = parser.add_subparsers(dest="action")
@@ -164,7 +164,7 @@ def main():
     action = args.action
     installer = args.installer
     show_ui = bool(args.ui)
-    cleanup = bool(args.cleanup)
+    rm_installer = bool(args.rm)
 
     qt_installer = installer
     if installer.startswith("http"):
@@ -182,8 +182,8 @@ def main():
         ret = _install(qt_installer, packages, destdir, show_ui, quiet, clean_destdir)
         status = "FAIL" if ret else "Installation OK"
 
-    if cleanup:
-        print("Cleaning", qt_installer)
+    if rm_installer:
+        print("Removing", qt_installer)
         os.remove(qt_installer)
 
     print(status)

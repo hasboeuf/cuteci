@@ -8,7 +8,7 @@ cd $(dirname $0)
     list
 
 ../deploy_qt \
-    --cleanup \
+    --rm \
     --installer /root/workspace/test/qt-opensource-linux-x64-5.12.2.run \
     install \
     --destdir /opt/Qt \
@@ -23,7 +23,7 @@ ls /opt/Qt/5.12.2/gcc_64/lib/libQt5NetworkAuth.so
     list
 
 ../deploy_qt \
-    --cleanup \
+    --rm \
     --installer /root/workspace/test/qt-opensource-linux-x64-5.11.3.run \
     install \
     --destdir /opt/Qt \
@@ -38,7 +38,7 @@ ls /opt/Qt/5.11.3/gcc_64/lib/libQt5NetworkAuth.so
     list
 
 ../deploy_qt \
-    --cleanup \
+    --rm \
     --installer /root/workspace/test/qt-opensource-linux-x64-5.10.1.run \
     install \
     --destdir /opt/Qt \
@@ -53,7 +53,7 @@ ls /opt/Qt/5.10.1/gcc_64/lib/libQt5NetworkAuth.so
     list
 
 ../deploy_qt \
-    --cleanup \
+    --rm \
     --installer /root/workspace/test/qt-opensource-linux-x64-5.9.7.run \
     install \
     --destdir /opt/Qt \

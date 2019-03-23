@@ -29,14 +29,14 @@ Common options:
 
 * `--installer` (required): path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`, this is because `md5sums.txt` is retrieved implicitely from it.
 * `--ui`: if set, Qt installer UI is shown (useful for debugging).
-* `--cleanup`: if set, Qt installer is removed at the end.
+* `--rm`: if set, Qt installer is removed at the end.
 
 ### List packages
 
 ```bash
 ./deploy_qt
     --installer <path or official url> \
-    [--ui] [--cleanup] \
+    [--ui] [--rm] \
     list
 ```
 
@@ -65,7 +65,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
 ```bash
 ./deploy_qt \
     --installer <path or official url> \
-    [--ui] [--cleanup] \
+    [--ui] [--rm] \
     install \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
@@ -99,7 +99,7 @@ RUN wget https://github.com/hasboeuf/cuteci/raw/1.0.0/deploy_qt && \
     wget https://github.com/hasboeuf/cuteci/raw/1.0.0/install-qt.qs && \
     chmod +x deploy_qt && \
     ./deploy_qt \
-        --cleanup \
+        --rm \
         --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
         install \
         --destdir /opt/Qt \
