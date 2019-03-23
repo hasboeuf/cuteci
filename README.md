@@ -30,9 +30,10 @@ Common options:
 ### List packages
 
 ```
-./deploy_qt list \
+./deploy_qt
     --installer <path or official url> \
-    [--headless] [--cleanup]
+    [--headless] [--cleanup] \
+    list \
 ```
 
 Will output:
@@ -58,11 +59,13 @@ qt.qt5.5122.android_armv7    Android ARMv7
 ### Install
 
 ```
-./deploy_qt install \
+./deploy_qt \
     --installer <path or official url> \
+    [--headless] [--cleanup] \
+    install \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
-    [--headless] [--cleanup]
+    [--quiet]
 ```
 
 #### Notes

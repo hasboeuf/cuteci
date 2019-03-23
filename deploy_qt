@@ -86,13 +86,14 @@ def _get_install_script(version):
     return path
 
 
-def _run_installer(qt_installer, headless, env):
+def _run_installer(qt_installer, headless, env, quiet=False):
     version = _get_major_minor_ver(qt_installer)
     install_script = _get_install_script(version)
-    cmd = [qt_installer, "--verbose", "--script", install_script]
+    cmd = [qt_installer, "--script", install_script]
     if headless:
         cmd.extend(["--platform", "minimal"])
-    print(cmd)
+    if not quiet:
+        cmd.extend(["--verbose"])
     proc = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env)
     try:
         print("Running installer", cmd)
@@ -110,11 +111,11 @@ def _list_packages(qt_installer, headless):
     return _run_installer(qt_installer, headless, env)
 
 
-def _install(qt_installer, packages, destdir, headless):
+def _install(qt_installer, packages, destdir, headless, quiet):
     env = os.environ.copy()
     env["PACKAGES"] = packages
     env["DESTDIR"] = destdir
-    return _run_installer(qt_installer, headless, env)
+    return _run_installer(qt_installer, headless, env, quiet)
 
 
 def main():
@@ -133,6 +134,7 @@ def main():
     install_parser = subparsers.add_parser(name="install")
     install_parser.add_argument("--packages", required=True, help="Comma separated list of package to install")
     install_parser.add_argument("--destdir", required=True, help="Path to install Qt, e.g.: /opt/Qt")
+    install_parser.add_argument("--quiet", action="store_true", help="Do not print debug info")
 
     args = parser.parse_args()
 
@@ -152,7 +154,8 @@ def main():
     else:
         packages = args.packages
         destdir = args.destdir
-        ret = _install(qt_installer, packages, destdir, headless)
+        quiet = bool(args.quiet)
+        ret = _install(qt_installer, packages, destdir, headless, quiet)
         status = "FAIL" if ret else "Installation OK"
 
     if cleanup:
