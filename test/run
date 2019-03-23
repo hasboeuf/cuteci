@@ -2,6 +2,7 @@
 set -ev
 cd $(dirname $0)
 
+# Test Qt 5.12
 ../deploy_qt \
     --headless \
     --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
@@ -13,5 +14,57 @@ cd $(dirname $0)
     --installer /root/workspace/test/qt-opensource-linux-x64-5.12.2.run \
     install \
     --destdir /opt/Qt \
-    --packages qt.qt5.5122.qtnetworkauth,qt.qt5.5122.qtwebengine,qt.qt5.5122.gcc_64 \
+    --packages qt.qt5.5122.qtnetworkauth,qt.qt5.5122.gcc_64 \
     --clean-destdir
+ls /opt/Qt/5.12.2/gcc_64/lib/libQt5NetworkAuth.so
+
+
+# Test Qt 5.11.3
+../deploy_qt \
+    --headless \
+    --installer http://download.qt.io/archive/qt/5.11/5.11.3/qt-opensource-linux-x64-5.11.3.run \
+    list
+
+../deploy_qt \
+    --headless \
+    --cleanup \
+    --installer /root/workspace/test/qt-opensource-linux-x64-5.11.3.run \
+    install \
+    --destdir /opt/Qt \
+    --packages qt.qt5.5113.qtnetworkauth,qt.qt5.5113.gcc_64 \
+    --clean-destdir
+ls /opt/Qt/5.11.3/gcc_64/lib/libQt5NetworkAuth.so
+
+
+# Test Qt 5.10.1
+../deploy_qt \
+    --headless \
+    --installer http://download.qt.io/archive/qt/5.10/5.10.1/qt-opensource-linux-x64-5.10.1.run \
+    list
+
+../deploy_qt \
+    --headless \
+    --cleanup \
+    --installer /root/workspace/test/qt-opensource-linux-x64-5.10.1.run \
+    install \
+    --destdir /opt/Qt \
+    --packages qt.qt5.5101.qtnetworkauth,qt.qt5.5101.gcc_64 \
+    --clean-destdir
+ls /opt/Qt/5.10.1/gcc_64/lib/libQt5NetworkAuth.so
+
+
+# Test Qt 5.9.7
+../deploy_qt \
+    --headless \
+    --installer http://download.qt.io/archive/qt/5.9/5.9.7/qt-opensource-linux-x64-5.9.7.run \
+    list
+
+../deploy_qt \
+    --headless \
+    --cleanup \
+    --installer /root/workspace/test/qt-opensource-linux-x64-5.9.7.run \
+    install \
+    --destdir /opt/Qt \
+    --packages qt.qt5.597.qtnetworkauth,qt.qt5.597.gcc_64 \
+    --clean-destdir
+ls /opt/Qt/5.9.7/gcc_64/lib/libQt5NetworkAuth.so
