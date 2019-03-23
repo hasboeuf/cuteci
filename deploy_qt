@@ -91,11 +91,11 @@ def _get_install_script(version):
     return path
 
 
-def _run_installer(qt_installer, headless, env, quiet=False):
+def _run_installer(qt_installer, show_ui, env, quiet=False):
     version = _get_major_minor_ver(qt_installer)
     install_script = _get_install_script(version)
     cmd = [qt_installer, "--script", install_script]
-    if headless:
+    if not show_ui:
         cmd.extend(["--platform", "minimal"])
     if not quiet:
         cmd.extend(["--verbose"])
@@ -110,17 +110,17 @@ def _run_installer(qt_installer, headless, env, quiet=False):
     return EXIT_OK
 
 
-def _list_packages(qt_installer, headless):
+def _list_packages(qt_installer, show_ui):
     env = os.environ.copy()
     env["LIST_PACKAGE_ONLY"] = "1"
-    return _run_installer(qt_installer, headless, env)
+    return _run_installer(qt_installer, show_ui, env)
 
 
-def _install(qt_installer, packages, destdir, headless, quiet, clean_destdir):
+def _install(qt_installer, packages, destdir, show_ui, quiet, clean_destdir):
     env = os.environ.copy()
     env["PACKAGES"] = packages
     env["DESTDIR"] = destdir
-    ret = _run_installer(qt_installer, headless, env, quiet)
+    ret = _run_installer(qt_installer, show_ui, env, quiet)
 
     if clean_destdir:
         print("Cleaning destdir")
@@ -145,7 +145,7 @@ def main():
     Command line tool to deploy Qt
     """
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--headless", action="store_true", help="No GUI displayed")
+    parser.add_argument("--ui", action="store_true", help="Installer UI displayed")
     parser.add_argument("--cleanup", action="store_true", help="Remove Qt installer")
     parser.add_argument("--installer", help="Path or url to Qt installer")
 
@@ -163,7 +163,7 @@ def main():
 
     action = args.action
     installer = args.installer
-    headless = bool(args.headless)
+    show_ui = bool(args.ui)
     cleanup = bool(args.cleanup)
 
     qt_installer = installer
@@ -172,14 +172,14 @@ def main():
     os.chmod(qt_installer, os.stat(qt_installer).st_mode | stat.S_IEXEC)
 
     if action == "list":
-        ret = _list_packages(qt_installer, headless)
+        ret = _list_packages(qt_installer, show_ui)
         status = "FAIL" if ret else "Listing OK - available packages are printed above"
     else:
         packages = args.packages
         destdir = args.destdir
         quiet = bool(args.quiet)
         clean_destdir = bool(args.clean_destdir)
-        ret = _install(qt_installer, packages, destdir, headless, quiet, clean_destdir)
+        ret = _install(qt_installer, packages, destdir, show_ui, quiet, clean_destdir)
         status = "FAIL" if ret else "Installation OK"
 
     if cleanup:

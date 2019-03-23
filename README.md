@@ -28,7 +28,7 @@ Qt installers are using Qt Installer Framework which provides scripting ability.
 Common options:
 
 * `--installer` (required): path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`, this is because `md5sums.txt` is retrieved implicitely from it.
-* `--headless`: if set, Qt installer UI does not show up at all.
+* `--ui`: if set, Qt installer UI is shown (useful for debugging).
 * `--cleanup`: if set, Qt installer is removed at the end.
 
 ### List packages
@@ -36,7 +36,7 @@ Common options:
 ```bash
 ./deploy_qt
     --installer <path or official url> \
-    [--headless] [--cleanup] \
+    [--ui] [--cleanup] \
     list
 ```
 
@@ -65,7 +65,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
 ```bash
 ./deploy_qt \
     --installer <path or official url> \
-    [--headless] [--cleanup] \
+    [--ui] [--cleanup] \
     install \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
@@ -79,6 +79,36 @@ qt.qt5.5122.android_armv7    Android ARMv7
 * If Qt `X.Y.Z` is going to be installed, `deploy_qt` will use `install-X.Y.qs`.
   Currently only script for `5.12` exists, so it will fallback on it by default.
   Feel free to push a PR to cover more versions.
+
+## Docker integration
+
+Here is the sample of a minimalist Dockerfile using `deploy_qt` for Qt 5.12.2:
+
+```bash
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libdbus-1-3 \
+    xvfb \
+    libfontconfig \
+    python3 \
+    ca-certificates \
+    wget
+
+RUN wget https://github.com/hasboeuf/cuteci/raw/1.0.0/deploy_qt && \
+    wget https://github.com/hasboeuf/cuteci/raw/1.0.0/install-qt.qs && \
+    chmod +x deploy_qt && \
+    ./deploy_qt \
+        --cleanup \
+        --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
+        install \
+        --destdir /opt/Qt \
+        --packages qt.qt5.5122.gcc_64 \
+        --clean-destdir && \
+    rm --force deploy_qt install-qt.qs
+
+ENTRYPOINT ["/bin/bash"]
+```
 
 ## Testing
 
