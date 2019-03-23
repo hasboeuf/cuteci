@@ -80,11 +80,11 @@ qt.qt5.5122.android_armv7    Android ARMv7
   Currently only script for `5.12` exists, so it will fallback on it by default.
   Feel free to push a PR to cover more versions.
 
-### Testing
+## Testing
 
 Covered by docker and Travis CI, have a look to `test` dir if you are curious.
 
-### Code sanity
+## Code sanity
 
 Coding style is handled by `black` (via `./blackify`).
 Static checks are handled by `pylint` (via `./pylintify`).
