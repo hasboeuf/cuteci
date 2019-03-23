@@ -116,13 +116,13 @@ def _list_packages(qt_installer, show_ui):
     return _run_installer(qt_installer, show_ui, env, verbose=True)
 
 
-def _install(qt_installer, packages, destdir, show_ui, verbose, clean_destdir):
+def _install(qt_installer, packages, destdir, show_ui, verbose, keep_tools):
     env = os.environ.copy()
     env["PACKAGES"] = packages
     env["DESTDIR"] = destdir
     ret = _run_installer(qt_installer, show_ui, env, verbose)
 
-    if clean_destdir:
+    if not keep_tools:
         print("Cleaning destdir")
         version = _get_version(qt_installer)
         files = os.listdir(destdir)
@@ -156,7 +156,7 @@ def main():
     install_parser = subparsers.add_parser(name="install")
     install_parser.add_argument("--packages", required=True, help="Comma separated list of package to install")
     install_parser.add_argument("--destdir", required=True, help="Path to install Qt, e.g.: /opt/Qt")
-    install_parser.add_argument("--clean-destdir", action="store_true", help="Only keep Qt itself in destdir")
+    install_parser.add_argument("--keep-tools", action="store_true", help="Keep tools, samples, doc etc")
     install_parser.add_argument("--verbose", action="store_true", help="Print debug info")
 
     args = parser.parse_args()
@@ -178,8 +178,8 @@ def main():
         packages = args.packages
         destdir = args.destdir
         verbose = bool(args.verbose)
-        clean_destdir = bool(args.clean_destdir)
-        ret = _install(qt_installer, packages, destdir, show_ui, verbose, clean_destdir)
+        keep_tools = bool(args.keep_tools)
+        ret = _install(qt_installer, packages, destdir, show_ui, verbose, keep_tools)
         status = "FAIL" if ret else "Installation OK"
 
     if rm_installer:

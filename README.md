@@ -69,20 +69,19 @@ qt.qt5.5122.android_armv7    Android ARMv7
     install \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
-    [--verbose] [--clean-destdir]
+    [--verbose] [--keep-tools]
 ```
 
 #### Notes
 
-* `destdir` should not contain a previous Qt installation,
-  otherwise installer will complain and script does not handle it. Use `--clean-destdir` to prevent this.
-* If Qt `X.Y.Z` is going to be installed, `deploy_qt` will use `install-X.Y.qs`.
-  Currently only script for `5.12` exists, so it will fallback on it by default.
-  Feel free to push a PR to cover more versions.
+* `destdir` should not contain a previous Qt installation (unless it has been installed with `deploy_qt`),
+  Otherwise installer will complain and script does not handle it.
+* If `--keep-tools` is set, QtCreator, Maintenance Tools, samples and doc will be kept,
+  but you will not be able to install another version of Qt in `destdir`.
 
 ## Docker integration
 
-Here is the sample of a minimalist Dockerfile using `deploy_qt` for Qt 5.12.2:
+Here is the sample of a minimalist Dockerfile using `deploy_qt` to install Qt 5.12.2:
 
 ```bash
 FROM ubuntu:18.04
@@ -103,8 +102,7 @@ RUN wget https://github.com/hasboeuf/cuteci/raw/1.0.0/deploy_qt && \
         --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
         install \
         --destdir /opt/Qt \
-        --packages qt.qt5.5122.gcc_64 \
-        --clean-destdir && \
+        --packages qt.qt5.5122.gcc_64 && \
     rm --force deploy_qt install-qt.qs
 
 ENTRYPOINT ["/bin/bash"]

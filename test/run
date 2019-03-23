@@ -13,8 +13,7 @@ cd $(dirname $0)
     install \
     --verbose \
     --destdir /opt/Qt \
-    --packages qt.qt5.5122.qtnetworkauth,qt.qt5.5122.gcc_64 \
-    --clean-destdir
+    --packages qt.qt5.5122.qtnetworkauth,qt.qt5.5122.gcc_64
 ls /opt/Qt/5.12.2/gcc_64/lib/libQt5NetworkAuth.so
 
 
@@ -29,8 +28,7 @@ ls /opt/Qt/5.12.2/gcc_64/lib/libQt5NetworkAuth.so
     install \
     --verbose \
     --destdir /opt/Qt \
-    --packages qt.qt5.5113.qtnetworkauth,qt.qt5.5113.gcc_64 \
-    --clean-destdir
+    --packages qt.qt5.5113.qtnetworkauth,qt.qt5.5113.gcc_64
 ls /opt/Qt/5.11.3/gcc_64/lib/libQt5NetworkAuth.so
 
 
@@ -45,12 +43,11 @@ ls /opt/Qt/5.11.3/gcc_64/lib/libQt5NetworkAuth.so
     install \
     --verbose \
     --destdir /opt/Qt \
-    --packages qt.qt5.5101.qtnetworkauth,qt.qt5.5101.gcc_64 \
-    --clean-destdir
+    --packages qt.qt5.5101.qtnetworkauth,qt.qt5.5101.gcc_64
 ls /opt/Qt/5.10.1/gcc_64/lib/libQt5NetworkAuth.so
 
 
-# Test Qt 5.9.7
+# Test Qt 5.9.7 + Tools
 ../deploy_qt \
     --installer http://download.qt.io/archive/qt/5.9/5.9.7/qt-opensource-linux-x64-5.9.7.run \
     list
@@ -62,5 +59,6 @@ ls /opt/Qt/5.10.1/gcc_64/lib/libQt5NetworkAuth.so
     --verbose \
     --destdir /opt/Qt \
     --packages qt.qt5.597.qtnetworkauth,qt.qt5.597.gcc_64 \
-    --clean-destdir
+    --keep-tools
 ls /opt/Qt/5.9.7/gcc_64/lib/libQt5NetworkAuth.so
+ls /opt/Qt/Tools
