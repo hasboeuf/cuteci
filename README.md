@@ -23,17 +23,15 @@ Qt installers are using Qt Installer Framework which provides scripting ability.
 ## Usage
 
 Common options:
-* `--installer`: path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`,
-                 this is because `md5sums.txt` is retrieved implicitely from it.
+* `--installer` (required): path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`, this is because `md5sums.txt` is retrieved implicitely from it.
 * `--headless`: if set, Qt installer UI does not show up at all.
 * `--cleanup`: if set, Qt installer is removed at the end.
 
 ### List packages
 
 ```
-./deploy_qt \
+./deploy_qt list \
     --installer <path or official url> \
-    --list-packages \
     [--headless] [--cleanup]
 ```
 
@@ -60,7 +58,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
 ### Install
 
 ```
-./deploy_qt \
+./deploy_qt install \
     --installer <path or official url> \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
