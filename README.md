@@ -69,7 +69,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
     install \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
-    [--quiet] [--clean-destdir]
+    [--verbose] [--clean-destdir]
 ```
 
 #### Notes

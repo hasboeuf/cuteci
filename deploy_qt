@@ -91,13 +91,13 @@ def _get_install_script(version):
     return path
 
 
-def _run_installer(qt_installer, show_ui, env, quiet=False):
+def _run_installer(qt_installer, show_ui, env, verbose):
     version = _get_major_minor_ver(qt_installer)
     install_script = _get_install_script(version)
     cmd = [qt_installer, "--script", install_script]
     if not show_ui:
         cmd.extend(["--platform", "minimal"])
-    if not quiet:
+    if verbose:
         cmd.extend(["--verbose"])
     proc = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env)
     try:
@@ -113,14 +113,14 @@ def _run_installer(qt_installer, show_ui, env, quiet=False):
 def _list_packages(qt_installer, show_ui):
     env = os.environ.copy()
     env["LIST_PACKAGE_ONLY"] = "1"
-    return _run_installer(qt_installer, show_ui, env)
+    return _run_installer(qt_installer, show_ui, env, verbose=True)
 
 
-def _install(qt_installer, packages, destdir, show_ui, quiet, clean_destdir):
+def _install(qt_installer, packages, destdir, show_ui, verbose, clean_destdir):
     env = os.environ.copy()
     env["PACKAGES"] = packages
     env["DESTDIR"] = destdir
-    ret = _run_installer(qt_installer, show_ui, env, quiet)
+    ret = _run_installer(qt_installer, show_ui, env, verbose)
 
     if clean_destdir:
         print("Cleaning destdir")
@@ -157,7 +157,7 @@ def main():
     install_parser.add_argument("--packages", required=True, help="Comma separated list of package to install")
     install_parser.add_argument("--destdir", required=True, help="Path to install Qt, e.g.: /opt/Qt")
     install_parser.add_argument("--clean-destdir", action="store_true", help="Only keep Qt itself in destdir")
-    install_parser.add_argument("--quiet", action="store_true", help="Do not print debug info")
+    install_parser.add_argument("--verbose", action="store_true", help="Print debug info")
 
     args = parser.parse_args()
 
@@ -177,9 +177,9 @@ def main():
     else:
         packages = args.packages
         destdir = args.destdir
-        quiet = bool(args.quiet)
+        verbose = bool(args.verbose)
         clean_destdir = bool(args.clean_destdir)
-        ret = _install(qt_installer, packages, destdir, show_ui, quiet, clean_destdir)
+        ret = _install(qt_installer, packages, destdir, show_ui, verbose, clean_destdir)
         status = "FAIL" if ret else "Installation OK"
 
     if rm_installer:
