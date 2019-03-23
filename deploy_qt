@@ -7,6 +7,7 @@ Deploy Qt
 import sys
 import os
 import stat
+import shutil
 import argparse
 from urllib.request import urlopen
 import hashlib
@@ -69,13 +70,17 @@ def _download_qt(qt_url):
     return qt_installer
 
 
-def _get_major_minor_ver(qt_installer):
+def _get_version(qt_installer):
     # qt-opensource-windows-x86-5.12.2.exe
     # qt-opensource-mac-x64-5.12.2.dmg
     # qt-opensource-linux-x64-5.12.2.run
     basename = os.path.basename(qt_installer)
-    res = re.search(r"-(\d+\.\d+)\.", basename)
+    res = re.search(r"-(\d+\.\d+.\d+)\.", basename)
     return res.group(1)
+
+
+def _get_major_minor_ver(qt_installer):
+    return ".".join(_get_version(qt_installer).split(".")[:1])
 
 
 def _get_install_script(version):
@@ -111,11 +116,28 @@ def _list_packages(qt_installer, headless):
     return _run_installer(qt_installer, headless, env)
 
 
-def _install(qt_installer, packages, destdir, headless, quiet):
+def _install(qt_installer, packages, destdir, headless, quiet, clean_destdir):
     env = os.environ.copy()
     env["PACKAGES"] = packages
     env["DESTDIR"] = destdir
-    return _run_installer(qt_installer, headless, env, quiet)
+    ret = _run_installer(qt_installer, headless, env, quiet)
+
+    if clean_destdir:
+        print("Cleaning destdir")
+        version = _get_version(qt_installer)
+        files = os.listdir(destdir)
+        for name in files:
+            fullpath = os.path.join(destdir, name)
+            if re.match(r"\d+\.\d+.\d+", name):
+                # Qt stands in X.Y.Z dir, skip it
+                print("Keep", fullpath)
+                continue
+            if os.path.isdir(fullpath):
+                shutil.rmtree(fullpath)
+            else:
+                os.remove(fullpath)
+            print("Remove", fullpath)
+    return ret
 
 
 def main():
@@ -134,6 +156,7 @@ def main():
     install_parser = subparsers.add_parser(name="install")
     install_parser.add_argument("--packages", required=True, help="Comma separated list of package to install")
     install_parser.add_argument("--destdir", required=True, help="Path to install Qt, e.g.: /opt/Qt")
+    install_parser.add_argument("--clean-destdir", action="store_true", help="Only keep Qt itself in destdir")
     install_parser.add_argument("--quiet", action="store_true", help="Do not print debug info")
 
     args = parser.parse_args()
@@ -155,7 +178,8 @@ def main():
         packages = args.packages
         destdir = args.destdir
         quiet = bool(args.quiet)
-        ret = _install(qt_installer, packages, destdir, headless, quiet)
+        clean_destdir = bool(args.clean_destdir)
+        ret = _install(qt_installer, packages, destdir, headless, quiet, clean_destdir)
         status = "FAIL" if ret else "Installation OK"
 
     if cleanup:

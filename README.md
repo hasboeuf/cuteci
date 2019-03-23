@@ -65,13 +65,13 @@ qt.qt5.5122.android_armv7    Android ARMv7
     install \
     --destdir /opt/Qt \
     --packages qt.qt5.5122.gcc_64,qt.qt5.5122.android_x86 \
-    [--quiet]
+    [--quiet] [--clean-destdir]
 ```
 
 #### Notes
 
 * `destdir` should not contain a previous Qt installation,
-  otherwise installer will complain and script does not handle it.
+  otherwise installer will complain and script does not handle it. Use `--clean-destdir` to prevent this.
 * If Qt `X.Y.Z` is going to be installed, `deploy_qt` will use `install-X.Y.qs`.
   Currently only script for `5.12` exists, so it will fallback on it by default.
   Feel free to push a PR to cover more versions.

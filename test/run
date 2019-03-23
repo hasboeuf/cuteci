@@ -13,4 +13,5 @@ cd $(dirname $0)
     --installer /root/workspace/test/qt-opensource-linux-x64-5.12.2.run \
     install \
     --destdir /opt/Qt \
-    --packages qt.qt5.5122.qtnetworkauth,qt.qt5.5122.qtwebengine,qt.qt5.5122.gcc_64
+    --packages qt.qt5.5122.qtnetworkauth,qt.qt5.5122.qtwebengine,qt.qt5.5122.gcc_64 \
+    --clean-destdir
