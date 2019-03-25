@@ -2,8 +2,9 @@
 
 [![Build Status](https://travis-ci.org/hasboeuf/cuteci.svg?branch=master)](https://travis-ci.org/hasboeuf/cuteci)
 
-CuteCI is a simple script allowing you to install Qt in headless mode.
-Qt installers are using Qt Installer Framework which provides scripting ability.
+CuteCI is a simple script allowing you to install Qt with desired packages in headless mode.
+Qt installers are using Qt Installer Framework which provides scripting ability,
+CuteCI takes advantage of this.
 
 ## Requirements
 
@@ -11,7 +12,7 @@ Qt installers are using Qt Installer Framework which provides scripting ability.
 
 `deploy_qt` is in Python but has only been tested on Ubuntu (+docker).
 
-`deploy_qt` has is tested with Qt installer `5.9.7` `5.10.1` `5.11.3` `5.12.2`.
+`deploy_qt` has been tested with Qt installer `5.9.7` `5.10.1` `5.11.3` `5.12.2`.
 
 ## Principle
 
@@ -75,7 +76,7 @@ qt.qt5.5122.android_armv7    Android ARMv7
 #### Notes
 
 * `destdir` should not contain a previous Qt installation (unless it has been installed with `deploy_qt`),
-  Otherwise installer will complain and script does not handle it.
+  otherwise installer will complain and script does not handle it.
 * If `--keep-tools` is set, QtCreator, Maintenance Tools, samples and doc will be kept,
   but you will not be able to install another version of Qt in `destdir`.
 
