@@ -14,6 +14,8 @@ import hashlib
 import re
 import subprocess
 
+import cuteci
+
 WORKING_DIR = os.getcwd()
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 MD5SUMS_FILENAME = "md5sums.txt"
@@ -124,7 +126,6 @@ def _install(qt_installer, packages, destdir, show_ui, verbose, keep_tools):
 
     if not keep_tools:
         print("Cleaning destdir")
-        version = _get_version(qt_installer)
         files = os.listdir(destdir)
         for name in files:
             fullpath = os.path.join(destdir, name)
@@ -145,13 +146,16 @@ def main():
     Command line tool to deploy Qt
     """
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--version", action="version", version="{} {}".format(cuteci.__application__, cuteci.__version__)
+    )
     parser.add_argument("--ui", action="store_true", help="Installer UI displayed")
     parser.add_argument("--rm", action="store_true", help="Remove Qt installer")
-    parser.add_argument("--installer", help="Path or url to Qt installer")
+    parser.add_argument("--installer", required=True, help="Path or url to Qt installer")
 
     subparsers = parser.add_subparsers(dest="action")
 
-    list_parser = subparsers.add_parser(name="list")
+    subparsers.add_parser(name="list")
 
     install_parser = subparsers.add_parser(name="install")
     install_parser.add_argument("--packages", required=True, help="Comma separated list of package to install")

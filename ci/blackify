@@ -1,0 +1,5 @@
+#!/bin/sh
+set -ev
+cd $(dirname $0)/..
+
+black -l 120 .

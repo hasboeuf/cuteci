@@ -1,15 +1,19 @@
 #!/bin/sh
 set -ev
-cd $(dirname $0)
+cd $(dirname $0)/..
+
+# Build & Install
+python3 setup.py sdist bdist_wheel
+pip3 install dist/cuteci-1.1.0-py3-none-any.whl
 
 # Test Qt 5.12.2
-../deploy_qt \
+cuteci \
     --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
     list
 
-../deploy_qt \
+cuteci \
     --rm \
-    --installer /root/workspace/test/qt-opensource-linux-x64-5.12.2.run \
+    --installer /root/workspace/qt-opensource-linux-x64-5.12.2.run \
     install \
     --verbose \
     --destdir /opt/Qt \
@@ -18,13 +22,13 @@ ls /opt/Qt/5.12.2/gcc_64/lib/libQt5NetworkAuth.so
 
 
 # Test Qt 5.11.3
-../deploy_qt \
+cuteci \
     --installer http://download.qt.io/archive/qt/5.11/5.11.3/qt-opensource-linux-x64-5.11.3.run \
     list
 
-../deploy_qt \
+cuteci \
     --rm \
-    --installer /root/workspace/test/qt-opensource-linux-x64-5.11.3.run \
+    --installer /root/workspace/qt-opensource-linux-x64-5.11.3.run \
     install \
     --verbose \
     --destdir /opt/Qt \
@@ -33,13 +37,13 @@ ls /opt/Qt/5.11.3/gcc_64/lib/libQt5NetworkAuth.so
 
 
 # Test Qt 5.10.1
-../deploy_qt \
+cuteci \
     --installer http://download.qt.io/archive/qt/5.10/5.10.1/qt-opensource-linux-x64-5.10.1.run \
     list
 
-../deploy_qt \
+cuteci \
     --rm \
-    --installer /root/workspace/test/qt-opensource-linux-x64-5.10.1.run \
+    --installer /root/workspace/qt-opensource-linux-x64-5.10.1.run \
     install \
     --verbose \
     --destdir /opt/Qt \
@@ -48,13 +52,13 @@ ls /opt/Qt/5.10.1/gcc_64/lib/libQt5NetworkAuth.so
 
 
 # Test Qt 5.9.7 + Tools
-../deploy_qt \
+cuteci \
     --installer http://download.qt.io/archive/qt/5.9/5.9.7/qt-opensource-linux-x64-5.9.7.run \
     list
 
-../deploy_qt \
+cuteci \
     --rm \
-    --installer /root/workspace/test/qt-opensource-linux-x64-5.9.7.run \
+    --installer /root/workspace/qt-opensource-linux-x64-5.9.7.run \
     install \
     --verbose \
     --destdir /opt/Qt \
