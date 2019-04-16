@@ -15,9 +15,20 @@ Note: continuous integration does not check code sanity.
 
 ## Release procedure
 
-### Manually
-
 * Bump version
+* Update CHANGELOG
+* Push a new tag
+
+### Publish via TravisCI
+
+TravisCI automatically publish `cuteci` on PyPI when a tag is pushed.
+
+Password in `.travis.yml` has been encrypted with:
+
+`travis encrypt <password> --add deploy.password`
+
+### Publish manually (not used anymore)
+
 * Deploy on Test PyPI
 
 ```bash
@@ -43,11 +54,3 @@ pip3 install cuteci
 cuteci --help
 python3 -c "import cuteci"
 ```
-
-### By TravisCI
-
-TravisCI automatically publish `cuteci` on PyPI when a tag is pushed.
-
-Password has been encrypted with:
-
-`travis encrypt <password> --add deploy.password`
