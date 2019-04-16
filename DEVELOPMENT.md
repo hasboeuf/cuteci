@@ -43,3 +43,11 @@ pip3 install cuteci
 cuteci --help
 python3 -c "import cuteci"
 ```
+
+### By TravisCI
+
+TravisCI automatically publish `cuteci` on PyPI when a tag is pushed.
+
+Password has been encrypted with:
+
+`travis encrypt <password> --add deploy.password`

@@ -1,11 +1,18 @@
 dist: xenial
 language: minimal
-
 services:
 - docker
-
 install:
 - test/build
-
 script:
 - docker run --rm -v $PWD:/root/workspace cuteci:1 /root/workspace/test/run
+deploy:
+  provider: pypi
+  user: hasboeuf
+  password:
+    secure: QCepFdmZvvaObE9vRM6V5pH9gmdYahRhxgKbWuHPADGHHLlUN9+ITOOIQDYZ+B+mxxZT7U0rEs4weDGF54G6NklqIJIy2JQttlROGUzO7uycON+psAgwThcPRfDmJ+AQCBOtWqjGwX6WHfpuwQKq4pX7WjF55MtiWMVq9eNEK+0eaiz041A1eR6iiG2Xrar53erLVnJaT6mArGKUWwXvqslUQRRdO8NM2iHO94OWK3SW3WbGVNegN8wRxLMVdJRKduvFeRH2kjnSWHM5OIpvEqyRDDMsk/AV8kRL7M/frp8dtwacRYkPd8xSKIYqFhxmqdv59lDHTVb+fG5CytH96285TogufAvh5J4w21j6VN38hv0CBEN5+tPoNSckP9DmeQmRyZhiKhSmuR35eEaXTaHJI9rTN6jmL4u0ocJ7jTLMW3vUSH0AsJ1c2p8kOrb+5Qs2/ZW7Mshi2k0VQYjdJNcDBROG83r96AFEULceUCV3jPUpIpySEsFWwrWrtb2KBGF6pVAL8N+bH5xo1JaKyXEhuNAghL8N/O8G9NOr34wVdOyL1DRzPp8279F8nz6+l03WjSfWUEGgm8YXYD9fp469ljEjfBF6k6GV4CzQdGGKHpSXGxCLBqPZT/CiJNjSqDR1013xv08fM2uMKT39zjmr/7eZ+SbbjK4p10x78oY=
+  on:
+    tags: true
+  on:
+    branch: master
+  skip_existing: true
