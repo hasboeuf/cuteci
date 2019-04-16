@@ -4,7 +4,7 @@ cd $(dirname $0)/..
 
 # Build & Install
 python3 setup.py sdist bdist_wheel
-pip3 install dist/cuteci-1.1.0-py3-none-any.whl
+pip3 install dist/*.whl
 
 # Test Qt 5.12.2
 cuteci \
