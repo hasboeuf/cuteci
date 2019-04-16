@@ -94,9 +94,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xvfb \
     libfontconfig \
     python3 \
-    python3-pip \
-    ca-certificates \
-    wget
+    python3-pip
 
 RUN pip3 install cuteci && \
     cuteci \
