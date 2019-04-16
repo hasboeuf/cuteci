@@ -2,4 +2,4 @@
 set -ev
 cd $(dirname $0)
 
-docker build -t cuteci:1 .
+docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t cuteci:1 .

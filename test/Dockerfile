@@ -11,6 +11,15 @@ RUN apt-get update && apt-get install --yes --no-install-recommends --quiet \
 
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /root/workspace
+# Create worker user with same permissions than the caller of `build` script.
+ARG UID=1000
+ARG GID=1000
+ENV USER worker
+RUN groupadd --gid $GID worker
+RUN useradd --create-home --gid $GID --uid $UID $USER --shell /bin/bash \
+    && echo "$USER:worker" | chpasswd
+WORKDIR /home/$USER
+ENV PATH="/home/worker/.local/bin:${PATH}"
+USER worker
 
 ENTRYPOINT ["/bin/bash"]

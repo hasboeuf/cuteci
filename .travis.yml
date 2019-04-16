@@ -5,7 +5,7 @@ services:
 install:
 - test/build
 script:
-- docker run --rm -v $PWD:/root/workspace cuteci:1 /root/workspace/test/run
+- docker run --rm -v $PWD:/home/worker/workspace cuteci:1 /home/worker/workspace/test/run
 deploy:
   provider: pypi
   user: hasboeuf
