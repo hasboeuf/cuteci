@@ -45,7 +45,7 @@ cuteci \
 
 Will output:
 
-```
+```bash
 ===LIST OF PACKAGES===
 qt    Qt
 qt.qt5.5122    Qt 5.12.2
@@ -108,16 +108,3 @@ RUN pip3 install cuteci && \
 
 ENTRYPOINT ["/bin/bash"]
 ```
-
-## Testing
-
-Covered by docker and Travis CI, have a look to `test` dir if you are curious.
-
-## Code sanity
-
-Coding style is handled by `black` (via `ci/blackify`).
-Static checks are handled by `pylint` (via `ci/pylintify`).
-
-You must `pip3 install -r requirements/codesanity.txt` to use those scripts.
-
-Note: continuous integration does not check code sanity.

@@ -1,5 +1,18 @@
 # CuteCI
 
+## Testing
+
+Covered by docker and Travis CI, have a look to `test` dir if you are curious.
+
+## Code sanity
+
+Coding style is handled by `black` (via `ci/blackify`).
+Static checks are handled by `pylint` (via `ci/pylintify`).
+
+You must `pip3 install -r requirements/codesanity.txt` to use those scripts.
+
+Note: continuous integration does not check code sanity.
+
 ## Release procedure
 
 ### Manually
