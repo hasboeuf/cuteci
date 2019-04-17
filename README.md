@@ -12,7 +12,7 @@ CuteCI takes advantage of this.
 
 * `Python3` `pip3`
 * `cuteci` is in Python but has only been tested on Ubuntu (+docker).
-* `cuteci` has been tested with Qt installer `5.9.7` `5.10.1` `5.11.3` `5.12.2`.
+* `cuteci` has been tested with Qt installer `5.9.7` `5.10.1` `5.11.3` `5.12.2` `5.12.3`.
 
 ## Installation
 
