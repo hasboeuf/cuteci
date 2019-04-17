@@ -33,6 +33,7 @@ Common options:
 * `--installer` (required): path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`, this is because `md5sums.txt` is retrieved implicitely from it.
 * `--ui`: if set, Qt installer UI is shown (useful for debugging).
 * `--rm`: if set, Qt installer is removed at the end.
+* `--timeout`: duration in seconds to wait for the operation to be finished.
 
 ### List packages
 

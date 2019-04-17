@@ -9,6 +9,7 @@ pip3 install dist/*.whl
 # Test Qt 5.12.2
 cuteci \
     --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
+    --timeout 60 \
     list
 
 cuteci \
@@ -24,6 +25,7 @@ ls ~/Qt/5.12.2/gcc_64/lib/libQt5NetworkAuth.so
 # Test Qt 5.11.3
 cuteci \
     --installer http://download.qt.io/archive/qt/5.11/5.11.3/qt-opensource-linux-x64-5.11.3.run \
+    --timeout 60 \
     list
 
 cuteci \
@@ -39,6 +41,7 @@ ls ~/Qt/5.11.3/gcc_64/lib/libQt5NetworkAuth.so
 # Test Qt 5.10.1
 cuteci \
     --installer http://download.qt.io/archive/qt/5.10/5.10.1/qt-opensource-linux-x64-5.10.1.run \
+    --timeout 60 \
     list
 
 cuteci \
@@ -54,6 +57,7 @@ ls ~/Qt/5.10.1/gcc_64/lib/libQt5NetworkAuth.so
 # Test Qt 5.9.7 + Tools
 cuteci \
     --installer http://download.qt.io/archive/qt/5.9/5.9.7/qt-opensource-linux-x64-5.9.7.run \
+    --timeout 60 \
     list
 
 cuteci \

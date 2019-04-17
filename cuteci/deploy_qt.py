@@ -20,7 +20,6 @@ WORKING_DIR = os.getcwd()
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 MD5SUMS_FILENAME = "md5sums.txt"
 DEFAULT_INSTALL_SCRIPT = os.path.join(CURRENT_DIR, "install-qt.qs")
-INSTALL_TIMEOUT = 120  # 2 minutes
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -52,10 +51,11 @@ class DeployQt:
     Class in charge of Qt deployment
     """
 
-    def __init__(self, show_ui, rm_installer, qt_installer):
+    def __init__(self, show_ui, rm_installer, qt_installer, timeout):
         self.verbose = False
         self.show_ui = show_ui
         self.rm_installer = rm_installer
+        self.timeout = timeout
         if qt_installer.startswith("http"):
             self.installer_path = None
             self.installer_url = qt_installer
@@ -75,10 +75,10 @@ class DeployQt:
         proc = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env)
         try:
             print("Running installer", cmd)
-            proc.wait(INSTALL_TIMEOUT)
+            proc.wait(self.timeout)
         except subprocess.TimeoutExpired:
             proc.kill()
-            raise Exception("Timeout while waiting for the installer, kill it")
+            raise Exception("Timeout while waiting for the installer (waited {}s), kill it".format(self.timeout))
 
     def _cleanup(self):
         if self.rm_installer:
@@ -200,6 +200,7 @@ def main():
     parser.add_argument("--ui", action="store_true", default=False, help="Installer UI displayed")
     parser.add_argument("--rm", action="store_true", default=False, help="Remove Qt installer")
     parser.add_argument("--installer", required=True, help="Path or url to Qt installer")
+    parser.add_argument("--timeout", type=int, default=180, help="Timeout in seconds, default 180")
 
     subparsers = parser.add_subparsers(dest="action")
 
@@ -214,7 +215,7 @@ def main():
     args = parser.parse_args()
     action = args.action
 
-    deployer = DeployQt(args.ui, args.rm, args.installer)
+    deployer = DeployQt(args.ui, args.rm, args.installer, args.timeout)
 
     try:
         deployer.download_qt()
