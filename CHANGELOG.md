@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+* Fix internal testing
+
 ## 1.2.0
 
 * Minor doc fixes
