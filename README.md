@@ -1,6 +1,8 @@
 # CuteCI
 
 [![Build Status](https://travis-ci.org/hasboeuf/cuteci.svg?branch=master)](https://travis-ci.org/hasboeuf/cuteci)
+[![PyPI version](https://badge.fury.io/py/cuteci.svg)](https://pypi.org/project/cuteci/)
+![License](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 CuteCI is a simple tool allowing you to install Qt with desired packages in headless mode.
 Qt installers are using Qt Installer Framework which provides scripting ability,
