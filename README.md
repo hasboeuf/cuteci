@@ -1,6 +1,8 @@
 # CuteCI
 
 [![Build Status](https://travis-ci.org/hasboeuf/cuteci.svg?branch=master)](https://travis-ci.org/hasboeuf/cuteci)
+[![PyPI version](https://badge.fury.io/py/cuteci.svg)](https://pypi.org/project/cuteci/)
+![License](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 CuteCI is a simple tool allowing you to install Qt with desired packages in headless mode.
 Qt installers are using Qt Installer Framework which provides scripting ability,
@@ -10,7 +12,7 @@ CuteCI takes advantage of this.
 
 * `Python3` `pip3`
 * `cuteci` is in Python but has only been tested on Ubuntu (+docker).
-* `cuteci` has been tested with Qt installer `5.9.7` `5.10.1` `5.11.3` `5.12.2`.
+* `cuteci` has been tested with Qt installer `5.9.7` `5.10.1` `5.11.3` `5.12.2` `5.12.3`.
 
 ## Installation
 
@@ -33,6 +35,7 @@ Common options:
 * `--installer` (required): path or url to Qt installer. If url, choose an official one from `download.qt.io/official_releases/qt/`, this is because `md5sums.txt` is retrieved implicitely from it.
 * `--ui`: if set, Qt installer UI is shown (useful for debugging).
 * `--rm`: if set, Qt installer is removed at the end.
+* `--timeout`: duration in seconds to wait for the operation to be finished.
 
 ### List packages
 
