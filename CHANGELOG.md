@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0
+
+* Added support for Qt `5.12.3`
+* Added `--timeout` option to install command
+* Internal refactoring
+
 ## 1.2.1
 
 * Fix internal testing
