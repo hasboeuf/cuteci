@@ -6,6 +6,22 @@ cd $(dirname $0)/..
 python3 setup.py sdist bdist_wheel
 pip3 install dist/*.whl
 
+
+# Test Qt 5.12.3
+cuteci \
+    --installer http://download.qt.io/official_releases/qt/5.12/5.12.3/qt-opensource-linux-x64-5.12.3.run \
+    list
+
+cuteci \
+    --rm \
+    --installer ~/workspace/qt-opensource-linux-x64-5.12.3.run \
+    install \
+    --verbose \
+    --destdir ~/Qt \
+    --packages qt.qt5.5123.qtnetworkauth,qt.qt5.5123.gcc_64
+ls ~/Qt/5.12.3/gcc_64/lib/libQt5NetworkAuth.so
+
+
 # Test Qt 5.12.2
 cuteci \
     --installer http://download.qt.io/official_releases/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run \
