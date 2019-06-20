@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+* Added tests for Qt `5.14.0`
+
 ## 1.3.0
 
 * Added support for Qt `5.12.3`
