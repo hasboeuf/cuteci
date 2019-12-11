@@ -203,6 +203,7 @@ def main():
     parser.add_argument("--timeout", type=int, default=180, help="Timeout in seconds, default 180")
 
     subparsers = parser.add_subparsers(dest="action")
+    subparsers.required = True
 
     subparsers.add_parser(name="list")
 
