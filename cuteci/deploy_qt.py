@@ -31,6 +31,13 @@ def _get_version(path):
     # qt-opensource-linux-x64-5.12.2.run
     basename = os.path.basename(path)
     res = re.search(r"-(\d+\.\d+.\d+)\.", basename)
+    if res is None:
+        raise Exception(
+            "Cannot get version from `{}` filename (expects name like: `qt-opensource-linux-x64-5.12.2.run`)".format(
+                basename
+            )
+        )
+    res.group(1)
     return res.group(1)
 
 
