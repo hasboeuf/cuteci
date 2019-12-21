@@ -39,20 +39,20 @@ cuteci \
 ls ~/Qt/5.13.2/gcc_64/lib/libQt5NetworkAuth.so
 
 
-# Test Qt 5.12.4
+# Test Qt 5.12.6
 cuteci \
-    --installer http://download.qt.io/official_releases/qt/5.12/5.12.4/qt-opensource-linux-x64-5.12.4.run \
+    --installer http://download.qt.io/official_releases/qt/5.12/5.12.6/qt-opensource-linux-x64-5.12.6.run \
     --timeout 60 \
     list
 
 cuteci \
     --rm \
-    --installer ~/workspace/qt-opensource-linux-x64-5.12.4.run \
+    --installer ~/workspace/qt-opensource-linux-x64-5.12.6.run \
     install \
     --verbose \
     --destdir ~/Qt \
-    --packages qt.qt5.5124.qtnetworkauth,qt.qt5.5124.gcc_64
-ls ~/Qt/5.12.4/gcc_64/lib/libQt5NetworkAuth.so
+    --packages qt.qt5.5126.qtnetworkauth,qt.qt5.5126.gcc_64
+ls ~/Qt/5.12.6/gcc_64/lib/libQt5NetworkAuth.so
 
 
 # Test Qt 5.11.3
@@ -87,19 +87,19 @@ cuteci \
 ls ~/Qt/5.10.1/gcc_64/lib/libQt5NetworkAuth.so
 
 
-# Test Qt 5.9.7 + Tools
+# Test Qt 5.9.9 + Tools
 cuteci \
-    --installer http://download.qt.io/archive/qt/5.9/5.9.7/qt-opensource-linux-x64-5.9.7.run \
+    --installer http://download.qt.io/archive/qt/5.9/5.9.9/qt-opensource-linux-x64-5.9.9.run \
     --timeout 60 \
     list
 
 cuteci \
     --rm \
-    --installer ~/workspace/qt-opensource-linux-x64-5.9.7.run \
+    --installer ~/workspace/qt-opensource-linux-x64-5.9.9.run \
     install \
     --verbose \
     --destdir ~/Qt \
-    --packages qt.qt5.597.qtnetworkauth,qt.qt5.597.gcc_64 \
+    --packages qt.qt5.599.qtnetworkauth,qt.qt5.599.gcc_64 \
     --keep-tools
-ls ~/Qt/5.9.7/gcc_64/lib/libQt5NetworkAuth.so
+ls ~/Qt/5.9.9/gcc_64/lib/libQt5NetworkAuth.so
 ls ~/Qt/Tools
