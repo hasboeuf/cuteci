@@ -7,6 +7,22 @@ python3 setup.py sdist bdist_wheel
 pip3 install dist/*.whl
 
 
+# Test Qt 5.14.0
+cuteci \
+    --installer https://download.qt.io/official_releases/qt/5.14/5.14.0/qt-opensource-linux-x64-5.14.0.run \
+    --timeout 60 \
+    list
+
+cuteci \
+    --rm \
+    --installer ~/workspace/qt-opensource-linux-x64-5.14.0.run \
+    install \
+    --verbose \
+    --destdir ~/Qt \
+    --packages qt.qt5.5140.qtnetworkauth,qt.qt5.5140.gcc_64
+ls ~/Qt/5.14.0/gcc_64/lib/libQt5NetworkAuth.so
+
+
 # Test Qt 5.13.2
 cuteci \
     --installer https://download.qt.io/official_releases/qt/5.13/5.13.2/qt-opensource-linux-x64-5.13.2.run \
