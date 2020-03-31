@@ -85,7 +85,9 @@ class DeployQt:
         proc = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env)
         try:
             print("Running installer", cmd)
-            proc.wait(self.timeout)
+            ret = proc.wait(self.timeout)
+            if ret != 0 and ret != 3:  # 3: Installer has been exited nicely
+                raise Exception("Installer neither returned 0 nor 3 exit code: {}".format(ret))
         except subprocess.TimeoutExpired:
             proc.kill()
             raise Exception("Timeout while waiting for the installer (waited {}s), kill it".format(self.timeout))
