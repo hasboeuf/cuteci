@@ -20,6 +20,7 @@ WORKING_DIR = os.getcwd()
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 MD5SUMS_FILENAME = "md5sums.txt"
 DEFAULT_INSTALL_SCRIPT = os.path.join(CURRENT_DIR, "install-qt.qs")
+UNEXISTING_PROXY = "192.168.0.100:44444"
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -71,6 +72,8 @@ class DeployQt:
             self.installer_url = None
 
     def _run_installer(self, env):
+        # Set a fake proxy, then credentials are not required in the installer
+        env.update({"http_proxy": UNEXISTING_PROXY, "https_proxy": UNEXISTING_PROXY})
         assert self.installer_path
         version = _get_major_minor_ver(self.installer_path)
         install_script = _get_install_script(version)
@@ -82,7 +85,9 @@ class DeployQt:
         proc = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env)
         try:
             print("Running installer", cmd)
-            proc.wait(self.timeout)
+            ret = proc.wait(self.timeout)
+            if ret != 0 and ret != 3:  # 3: Installer has been exited nicely
+                raise Exception("Installer neither returned 0 nor 3 exit code: {}".format(ret))
         except subprocess.TimeoutExpired:
             proc.kill()
             raise Exception("Timeout while waiting for the installer (waited {}s), kill it".format(self.timeout))

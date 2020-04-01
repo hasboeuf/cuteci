@@ -12,7 +12,7 @@ CuteCI takes advantage of this.
 
 * `Python3` `pip3`
 * `cuteci` is in Python but has only been tested on Ubuntu (+docker).
-* `cuteci` is tested with latest patch version of Qt `5.9` `5.10` `5.11` `5.12` `5.13`, `5.14`.
+* `cuteci` is tested with latest patch version of Qt `5.9` `5.12` `5.13`, `5.14` (`5.10` `5.11` are not online anymore).
 
 ## Installation
 
@@ -98,6 +98,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfontconfig \
     python3 \
     python3-pip
+    # For some reason Qt installer 5.12 requires:
+    libxrender1 \
+    libxkbcommon-x11-0
 
 RUN pip3 install cuteci && \
     cuteci \
