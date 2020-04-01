@@ -98,6 +98,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfontconfig \
     python3 \
     python3-pip
+    # For some reason Qt installer 5.12 requires:
+    libxrender1 \
+    libxkbcommon-x11-0
 
 RUN pip3 install cuteci && \
     cuteci \

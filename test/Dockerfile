@@ -7,7 +7,10 @@ RUN apt-get update && apt-get install --yes --no-install-recommends --quiet \
     python3-wheel \
     xvfb \
     libfontconfig \
-    libdbus-1-3
+    libdbus-1-3 \
+    # For some reason Qt installer 5.12 requires:
+    libxrender1 \
+    libxkbcommon-x11-0
 
 ENV PYTHONUNBUFFERED=1
 
