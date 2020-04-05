@@ -7,6 +7,7 @@
 * Better version parsing from Qt installer
 * Minor parser fix
 * Improve documentation
+* Bypass account signin steps
 
 ## 1.3.1
 

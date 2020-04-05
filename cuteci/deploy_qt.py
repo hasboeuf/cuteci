@@ -13,8 +13,10 @@ from urllib.request import urlopen
 import hashlib
 import re
 import subprocess
+import logging
 
 import cuteci
+
 
 WORKING_DIR = os.getcwd()
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -24,6 +26,15 @@ UNEXISTING_PROXY = "192.168.0.100:44444"
 
 EXIT_OK = 0
 EXIT_ERROR = 1
+
+
+log = logging.getLogger()
+log.setLevel(logging.DEBUG)
+console = logging.StreamHandler(sys.stdout)
+console.setFormatter(
+    logging.Formatter(fmt=("%(asctime)s " "[%(levelname)s] " "%(message)s"), datefmt="%Y-%m-%dT%H:%M:%S%z")
+)
+log.addHandler(console)
 
 
 def _get_version(path):
@@ -49,7 +60,7 @@ def _get_major_minor_ver(path):
 def _get_install_script(version):
     path = os.path.join(CURRENT_DIR, "install-qt-{}.qs".format(version))
     if not os.path.exists(path):
-        print("No specific install script found, fallback to", DEFAULT_INSTALL_SCRIPT)
+        log.info("No specific install script found, fallback to %s", DEFAULT_INSTALL_SCRIPT)
         path = DEFAULT_INSTALL_SCRIPT
     return path
 
@@ -82,9 +93,9 @@ class DeployQt:
             cmd.extend(["--platform", "minimal"])
         if self.verbose:
             cmd.extend(["--verbose"])
+        log.info("Running installer %s", cmd)
         proc = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, env=env)
         try:
-            print("Running installer", cmd)
             ret = proc.wait(self.timeout)
             if ret != 0 and ret != 3:  # 3: Installer has been exited nicely
                 raise Exception("Installer neither returned 0 nor 3 exit code: {}".format(ret))
@@ -95,7 +106,7 @@ class DeployQt:
     def _cleanup(self):
         if self.rm_installer:
             assert self.installer_path
-            print("Removing", self.installer_path)
+            log.info("Removing %s", self.installer_path)
             os.remove(self.installer_path)
 
     def _ensure_executable(self):
@@ -109,7 +120,7 @@ class DeployQt:
         :raises Exception: in case of failure
         """
         if not self.installer_url:
-            print("Skip download: no url provided")
+            log.info("Skip download: no url provided")
             return
         qt_url = self.installer_url
         filename = qt_url[qt_url.rfind("/") + 1 :]
@@ -118,16 +129,16 @@ class DeployQt:
         self.installer_path = os.path.join(WORKING_DIR, filename)
 
         # Download Qt
-        print("Download Qt", qt_url)
+        log.info("Download Qt %s", qt_url)
 
         def print_progress(size, length):
-            # Print progress every 5%
+            # Print progress every 10%
             if not hasattr(print_progress, "prev"):
                 print_progress.prev = -1  # Then 0% is printed
             percent = int(size * 100 / length)
-            progress = percent - percent % 5
+            progress = percent - percent % 10
             if progress != print_progress.prev:
-                print("\rFetched {}%".format(progress), end="")
+                log.info("Fetched %s%", progress)
                 print_progress.prev = progress
 
         hash_md5 = hashlib.md5()
@@ -145,14 +156,13 @@ class DeployQt:
                 print_progress(size, length)
 
         # Download md5sums and check
-        print()
-        print("Download md5sums", md5sums_url)
+        log.info("Download md5sums %s", md5sums_url)
         response = urlopen(md5sums_url)
-        print("Check md5sums")
+        log.info("Check md5sums")
         if hash_md5.hexdigest() not in str(response.read()):
-            print("Checksums do not match")
+            log.error("Checksums do not match")
             return EXIT_ERROR
-        print("Download OK", self.installer_path)
+        log.info("Download OK %s", self.installer_path)
 
     def list_packages(self):
         """
@@ -186,19 +196,19 @@ class DeployQt:
         self._cleanup()
 
         if not keep_tools:
-            print("Cleaning destdir")
+            log.info("Cleaning destdir")
             files = os.listdir(destdir)
             for name in files:
                 fullpath = os.path.join(destdir, name)
                 if re.match(r"\d+\.\d+.\d+", name):
                     # Qt stands in X.Y.Z dir, skip it
-                    print("Keep", fullpath)
+                    log.info("Keep %s", fullpath)
                     continue
                 if os.path.isdir(fullpath):
                     shutil.rmtree(fullpath)
                 else:
                     os.remove(fullpath)
-                print("Remove", fullpath)
+                log.info("Remove %s", fullpath)
 
 
 def main():
@@ -232,18 +242,18 @@ def main():
 
     try:
         deployer.download_qt()
-        print("Download OK - Qt Installer is ready")
+        log.info("Download OK - Qt Installer is ready")
 
         if action == "list":
             deployer.list_packages()
-            print("Listing OK - available packages are printed above")
+            log.info("Listing OK - available packages are printed above")
         else:
             deployer.install(args.packages, args.destdir, args.keep_tools, args.verbose)
-            print("Installation OK")
+            log.info("Installation OK")
     except Exception as exception:
-        print("FAIL", str(exception))
+        log.error("FAIL %s", str(exception))
         return EXIT_ERROR
-    print("OK")
+    log.info("OK")
     return EXIT_OK
 
 
