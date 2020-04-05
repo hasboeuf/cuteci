@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.0
+## 1.5.0
 
 * Added tests for Qt `5.14`
 * Update tests with latest Qt patch version
@@ -8,6 +8,10 @@
 * Minor parser fix
 * Improve documentation
 * Bypass account signin steps
+
+## 1.4.0
+
+* Shit happens
 
 ## 1.3.1
 
