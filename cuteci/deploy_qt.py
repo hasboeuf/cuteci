@@ -138,7 +138,7 @@ class DeployQt:
             percent = int(size * 100 / length)
             progress = percent - percent % 10
             if progress != print_progress.prev:
-                log.info("Fetched %s%", progress)
+                log.info("Fetched %d%%", progress)
                 print_progress.prev = progress
 
         hash_md5 = hashlib.md5()
